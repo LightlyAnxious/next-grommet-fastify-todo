@@ -1,0 +1,11 @@
+{
+  "plugins": ["prettier", "@typescript-eslint"],
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "rules": {
+    "no-undef": "error"
+  }
+}
