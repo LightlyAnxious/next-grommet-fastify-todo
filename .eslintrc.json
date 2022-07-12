@@ -6,6 +6,7 @@
     "prettier"
   ],
   "rules": {
-    "no-undef": "error"
+    "no-undef": "error",
+    "@typescript-eslint/no-empty-function": "warn"
   }
 }

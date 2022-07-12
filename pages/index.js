@@ -1,23 +1,31 @@
-import { useState } from "react";
-import { Box, Button, grommet, Grommet, Heading } from "grommet";
+import styled from "styled-components";
+import { Box, Card, Grid, Heading } from "grommet";
+import Layout from "../components/layout";
 
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import mockTodos from "../mocks";
 
-export default function Home() {
-  const [darkMode, setDarkMode] = useState(false);
-
+export default function Dashboard({ children }) {
   return (
-    <Grommet full theme={grommet} themeMode={darkMode ? "dark" : "light"}>
-      <Box pad="large">
-        <Heading>Another todo</Heading>
+    <>
+      <Heading
+        level={2}
+        fill
+        margin={{ vertical: "medium" }}
+        textAlign="center"
+      >
+        Dashboard
+      </Heading>
+      <Grid columns={["flex", "flex"]} gap="small">
+        {mockTodos.map((m) => {
+          const { id, userId, title, completed } = m;
 
-        <Button
-          label="Toggle theme"
-          onClick={() => setDarkMode((prev) => !prev)}
-        />
-      </Box>
-    </Grommet>
+          return (
+            <Card key={id} pad="small">
+              {title}
+            </Card>
+          );
+        })}
+      </Grid>
+    </>
   );
 }
