@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 
 import {
@@ -34,12 +33,22 @@ const Toggler = styled(Button)`
   justify-self: end;
 `;
 
-export default function Header({ darkMode, onToggleMode }) {
+interface HeaderProps {
+  darkMode: boolean;
+  onToggleMode: () => void;
+}
+
+export default function Header({ darkMode, onToggleMode }: HeaderProps) {
   const headerBg = darkMode ? "dark-2" : "light-2";
 
   return (
     <Grommet theme={grommet} themeMode={darkMode ? "dark" : "light"}>
-      <HeaderLayout pad="medium" background={headerBg} sticky gap="none">
+      <HeaderLayout
+        pad="medium"
+        background={headerBg}
+        sticky="scrollup"
+        gap="none"
+      >
         <Navigation />
         <Title textAlign="center">Another todo</Title>
 

@@ -1,15 +1,6 @@
-import {
-  Anchor,
-  grommet,
-  Grommet,
-  Menu,
-  Nav,
-  ResponsiveContext,
-} from "grommet";
+import { Anchor, Grommet, Menu, Nav, ResponsiveContext } from "grommet";
 import { Menu as MenuIcon, Close } from "grommet-icons";
-import { deepMerge } from "grommet/utils";
 import Link from "next/link";
-import { css } from "styled-components";
 
 const navTheme = {
   menu: {
@@ -24,18 +15,21 @@ export default function Navigation() {
   return (
     <Grommet theme={navTheme}>
       <ResponsiveContext.Consumer>
-        {(responsive) =>
+        {(responsive: string) =>
           responsive === "small" ? (
             <Menu
               items={[
+                /* @ts-ignore */
                 { label: "Create", onClick: () => {} },
+                /* @ts-ignore */
                 { label: "Edit", onClick: () => {} },
+                /* @ts-ignore */
                 { label: "Dashboard", onClick: () => {} },
               ]}
             />
           ) : (
             <Nav direction="row">
-              <Anchor href="/create" label="Create"></Anchor>
+              <Anchor href="/create" label="Create" />
               <Anchor href="/edit" label="Edit" />
               <Anchor href="/" label="Dashboard" />
             </Nav>
