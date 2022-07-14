@@ -49,7 +49,7 @@ export default function Header({ darkMode, onToggleMode }: HeaderProps) {
         sticky="scrollup"
         gap="none"
       >
-        <Navigation />
+        {/* <Navigation /> */}
         <Title textAlign="center">Another todo</Title>
 
         <Toggler

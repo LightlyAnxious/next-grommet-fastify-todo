@@ -1,10 +1,12 @@
-import styled from "styled-components";
-import { Box, Button, Card, Grid, Heading, TextInput } from "grommet";
-import Layout from "../components/layout";
-
-import mockTodos from "../mocks";
-import { Add } from "grommet-icons";
 import { useState } from "react";
+import styled from "styled-components";
+
+import fetchTodos from "./api/fetch-todos";
+
+import { Box, Button, Grid, Heading, TextInput } from "grommet";
+import Layout from "../components/layout";
+import CardCmp from "../components/card";
+import { Add } from "grommet-icons";
 
 const LIMIT = 6;
 
@@ -38,16 +40,16 @@ const Cards = ({ list }) => {
         const { id, userId, title, completed } = m;
 
         return (
-          <Card key={id} pad="small" height={{ min: "48px" }}>
+          <CardCmp key={id} id={id}>
             {title}
-          </Card>
+          </CardCmp>
         );
       })}
     </Box>
   );
 };
 
-export default function Dashboard({ todos, children }) {
+export default function Main({ todos, children }) {
   const [count, setCount] = useState(1);
 
   const todoChunk = [...(todos ?? [])].slice(0, count * LIMIT);
@@ -55,34 +57,26 @@ export default function Dashboard({ todos, children }) {
   const isShowMoreButton = count * LIMIT < todos.length;
   return (
     <>
-      <Grid
-        alignSelf="center"
-        margin={{ vertical: "medium" }}
-        width={{ max: "600px" }}
-      >
-        <InputField>
-          <TextInput pad={{ left: "48px" }} />
-          <AddButton secondary />
-        </InputField>
-        <Cards list={todoChunk} />
-        {isShowMoreButton && (
-          <Button
-            primary
-            label="Show more"
-            onClick={() => {
-              setCount((prev) => ++prev);
-            }}
-          />
-        )}
-      </Grid>
+      <InputField>
+        <TextInput pad={{ left: "48px" }} />
+        <AddButton secondary />
+      </InputField>
+      <Cards list={todoChunk} />
+      {isShowMoreButton && (
+        <Button
+          primary
+          label="Show more"
+          onClick={() => {
+            setCount((prev) => ++prev);
+          }}
+        />
+      )}
     </>
   );
 }
 
 export async function getStaticProps() {
-  const todos = await (
-    await fetch("https://jsonplaceholder.typicode.com/todos")
-  )?.json();
+  const todos = await fetchTodos();
 
   return {
     props: {

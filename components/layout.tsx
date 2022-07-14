@@ -1,4 +1,4 @@
-import { Main } from "grommet";
+import { Grid, Main } from "grommet";
 import { ReactNode } from "react";
 import Header from "./header";
 
@@ -17,7 +17,14 @@ export default function Layout({
     <>
       <Header darkMode={darkMode} onToggleMode={onToggleMode} />
       <Main fill="vertical" pad="medium">
-        {children}
+        <Grid
+          fill="horizontal"
+          alignSelf="center"
+          margin={{ vertical: "medium" }}
+          width={{ max: "600px" }}
+        >
+          {children}
+        </Grid>
       </Main>
     </>
   );
