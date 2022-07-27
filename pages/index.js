@@ -33,6 +33,10 @@ const AddButton = styled(Button).attrs({ icon: <Add /> })`
   }
 `;
 
+const ShowMoreButton = styled(Button)`
+  justify-self: center;
+`;
+
 const Cards = ({ list }) => {
   return (
     <Box margin={{ bottom: "large" }}>
@@ -63,7 +67,7 @@ export default function Main({ todos, children }) {
       </InputField>
       <Cards list={todoChunk} />
       {isShowMoreButton && (
-        <Button
+        <ShowMoreButton
           primary
           label="Show more"
           onClick={() => {
@@ -75,7 +79,7 @@ export default function Main({ todos, children }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const todos = await fetchTodos();
 
   return {

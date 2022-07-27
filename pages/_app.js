@@ -22,11 +22,7 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   return (
-    <Grommet
-      full
-      theme={deepMerge(grommet, customTheme)}
-      themeMode={darkMode ? "dark" : "light"}
-    >
+    <Grommet full theme={customTheme} themeMode={darkMode ? "dark" : "light"}>
       <Layout darkMode={darkMode} onToggleMode={onToggleMode}>
         <Component {...pageProps} />
       </Layout>

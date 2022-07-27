@@ -1,5 +1,13 @@
 import { Grid, Main } from "grommet";
-import { ReactNode } from "react";
+import {
+  ReactNode,
+  Ref,
+  useRef,
+  ElementRef,
+  useLayoutEffect,
+  useState,
+} from "react";
+import styled from "styled-components";
 import Header from "./header";
 
 interface LayoutProps {
@@ -8,15 +16,37 @@ interface LayoutProps {
   children?: ReactNode;
 }
 
+interface MainProps {
+  offset?: number;
+  pad: string;
+}
+
+const MainWrapper = styled(Main)<MainProps>`
+  max-height: ${({ offset }) => `calc(100vh - ${offset}px)`};
+  overflow: scroll;
+`;
+
 export default function Layout({
   darkMode,
   onToggleMode,
   children,
 }: LayoutProps) {
+  const [headerOffset, setHeaderOffset] = useState(0);
+
+  const headerRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    if (headerRef.current) {
+      const { height } = headerRef.current.getBoundingClientRect();
+
+      setHeaderOffset(height);
+    }
+  }, []);
+
   return (
     <>
-      <Header darkMode={darkMode} onToggleMode={onToggleMode} />
-      <Main fill="vertical" pad="medium">
+      <Header ref={headerRef} darkMode={darkMode} onToggleMode={onToggleMode} />
+      <MainWrapper offset={headerOffset} pad="medium">
         <Grid
           fill="horizontal"
           alignSelf="center"
@@ -25,7 +55,7 @@ export default function Layout({
         >
           {children}
         </Grid>
-      </Main>
+      </MainWrapper>
     </>
   );
 }

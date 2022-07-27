@@ -1,3 +1,4 @@
+import { forwardRef, LegacyRef } from "react";
 import styled from "styled-components";
 
 import {
@@ -38,11 +39,13 @@ interface HeaderProps {
   onToggleMode: () => void;
 }
 
-export default function Header({ darkMode, onToggleMode }: HeaderProps) {
+const Header = forwardRef<HTMLDivElement, HeaderProps>((props, ref) => {
+  const { darkMode, onToggleMode } = props;
+
   const headerBg = darkMode ? "dark-2" : "light-2";
 
   return (
-    <Grommet theme={grommet} themeMode={darkMode ? "dark" : "light"}>
+    <Grommet ref={ref} theme={grommet} themeMode={darkMode ? "dark" : "light"}>
       <HeaderLayout
         pad="medium"
         background={headerBg}
@@ -60,4 +63,7 @@ export default function Header({ darkMode, onToggleMode }: HeaderProps) {
       </HeaderLayout>
     </Grommet>
   );
-}
+});
+
+Header.displayName = "Header";
+export default Header;
